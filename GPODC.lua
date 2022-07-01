@@ -1,10 +1,13 @@
+-- requirements: have the following
+--[[
+local userID = "" -- your Discord ID
+local Webhook = "" -- your Discord Webhook link
+]]
+
 assert(isfile == nil or writefile == nil or readfile == nil or appendfile == nil, "Filesystem functions required don't exist.")
 assert(http_request == nil or syn == nil or syn.request == nil, "HTTP request functions don't exist.")
 
 local http = http_request or syn.request;
-local userID = ""; -- your Discord ID
-local webhook = ""; -- Your Webhook link
-
 local Players = game.Players;
 
 if not isfile("dungCounter.txt") then
