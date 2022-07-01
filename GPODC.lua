@@ -4,15 +4,18 @@ local userID = "" -- your Discord ID
 local Webhook = "" -- your Discord Webhook link
 ]]
 
-if isfile == nil or writefile == nil or readfile == nil or appendfile == nil then
+if type(isfile) ~= "function" or type(writefile) ~= "function" or type(readfile) ~= "function" or type(appendfile) ~= "function" then
    error("Filesystem functions required don't exist.", 1);
 end;
 
-if http_request == nil or syn == nil or syn.request == nil then
-   error("HTTP request functions don't exist.", 1);
+if type(http_request) ~= "function" then
+   error("HTTP request function don't exist.", 1);
 end;
 
-local http = http_request or syn.request;
+local http = http_request;
+if syn.request then
+    http = syn.request;
+end;
 
 local Players = game.Players;
 
