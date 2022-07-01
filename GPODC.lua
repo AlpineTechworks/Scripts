@@ -2,8 +2,8 @@
 --[[
 local userID = "" -- your Discord ID
 local Webhook = "" -- your Discord Webhook link
+local sendTest = true -- sends a webhook for test
 ]]
-
 if type(isfile) ~= "function" or type(writefile) ~= "function" or type(readfile) ~= "function" or type(appendfile) ~= "function" then
    error("Filesystem functions required don't exist.", 1);
 end;
@@ -13,6 +13,12 @@ if type(syn) ~= "table" then
 	   error("HTTP request function don't exist.", 1);
 	end;
 end;
+
+if isfile("testedAlready") then
+    sendTest = false
+else
+    writefile("testedAlready", 'pro')
+end
 
 local http = http_request;
 if syn.request then
@@ -63,3 +69,27 @@ Players.PlayerAdded:Connect(function(plr)
         end;
     end;
 end);
+
+if sendTest then
+    local data = {
+        ["content"] = "<@" .. userID .. ">",
+        ["embeds"] = {
+            {
+                ["title"] = "**Dungeon Counter**",
+                ["description"] = "testing heloooo",
+                ["type"] = "rich",
+                ["color"] = Color3.fromHex("28282B"),
+                ["image"] = {
+                    ["url"] = "http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" ..
+                        tostring(game:GetService("Players").LocalPlayer.Name);
+                };
+            };
+        };
+    };
+
+    local newdata = game:GetService("HttpService"):JSONEncode(data);
+
+    local abcdef = {Url = Webhook, Body = newdata, Method = "POST", Headers = {["content-type"] = "application/json"}};
+
+    http(abcdef);
+end;
