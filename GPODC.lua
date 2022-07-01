@@ -14,10 +14,10 @@ if type(syn) ~= "table" then
 	end;
 end;
 
-if isfile("testedAlready") then
+if isfile("testedAlready.txt") then
     sendTest = false
 else
-    writefile("testedAlready", 'pro')
+    writefile("testedAlready.txt", 'pro')
 end
 
 local http = http_request;
