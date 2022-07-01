@@ -4,10 +4,11 @@ local userID = "" -- your Discord ID
 local Webhook = "" -- your Discord Webhook link
 ]]
 
-assert(isfile == nil or writefile == nil or readfile == nil or appendfile == nil, "Filesystem functions required don't exist.")
-assert(http_request == nil or syn == nil or syn.request == nil, "HTTP request functions don't exist.")
+assert(isfile == nil or writefile == nil or readfile == nil or appendfile == nil, "Filesystem functions required don't exist.");
+assert(http_request == nil or syn == nil or syn.request == nil, "HTTP request functions don't exist.");
 
 local http = http_request or syn.request;
+
 local Players = game.Players;
 
 if not isfile("dungCounter.txt") then
@@ -37,16 +38,16 @@ Players.PlayerAdded:Connect(function(plr)
                         ["color"] = Color3.fromHex("28282B"),
                         ["image"] = {
                             ["url"] = "http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" ..
-                                tostring(game:GetService("Players").LocalPlayer.Name)
-                        }
-                    }
-                }
-             }
-             local newdata = game:GetService("HttpService"):JSONEncode(data)
+                                tostring(game:GetService("Players").LocalPlayer.Name);
+                        };
+                    };
+                };
+             };
+             local newdata = game:GetService("HttpService"):JSONEncode(data);
 
-             local abcdef = {Url = webhook, Body = newdata, Method = "POST", Headers = {["content-type"] = "application/json"}}
+             local abcdef = {Url = webhook, Body = newdata, Method = "POST", Headers = {["content-type"] = "application/json"}};
 
-             http(abcdef)
+             http(abcdef);
         end
     end
 end)
