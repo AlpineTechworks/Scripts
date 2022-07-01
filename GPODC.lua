@@ -28,8 +28,9 @@ end;
 Players.PlayerAdded:Connect(function(plr)
     if plr.Name == Players.LocalPlayer then
         local Data = plr:GetJoinData();
-        
+        warn('wow')
         if Data.SourcePlaceId == 3978370137 then
+            warn('joined')
             local num;
             local formula;
             if isfile("dungCounter.txt") then
@@ -52,12 +53,13 @@ Players.PlayerAdded:Connect(function(plr)
                         };
                     };
                 };
-             };
-             local newdata = game:GetService("HttpService"):JSONEncode(data);
+            };
 
-             local abcdef = {Url = Webhook, Body = newdata, Method = "POST", Headers = {["content-type"] = "application/json"}};
+            local newdata = game:GetService("HttpService"):JSONEncode(data);
 
-             http(abcdef);
+            local abcdef = {Url = Webhook, Body = newdata, Method = "POST", Headers = {["content-type"] = "application/json"}};
+
+            http(abcdef);
         end;
     end;
 end);
