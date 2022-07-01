@@ -8,8 +8,10 @@ if type(isfile) ~= "function" or type(writefile) ~= "function" or type(readfile)
    error("Filesystem functions required don't exist.", 1);
 end;
 
-if type(http_request) ~= "function" then
-   error("HTTP request function don't exist.", 1);
+if type(syn) ~= "table" then
+	if type(http_request) ~= "function" then
+	   error("HTTP request function don't exist.", 1);
+	end;
 end;
 
 local http = http_request;
@@ -21,7 +23,7 @@ local Players = game.Players;
 
 if not isfile("dungCounter.txt") then
     writefile("dungCounter.txt", 1);
-end
+end;
 
 Players.PlayerAdded:Connect(function(plr)
     if plr.Name == Players.LocalPlayer then
@@ -34,7 +36,7 @@ Players.PlayerAdded:Connect(function(plr)
                 num = tonumber(readfile("dungCounter.txt"));
                 formula = num + 1;
                 appendFile("dungCounter.txt", formula);
-            end
+            end;
 
             local data = {
                 ["content"] = "<@" .. userID .. ">",
@@ -46,16 +48,16 @@ Players.PlayerAdded:Connect(function(plr)
                         ["color"] = Color3.fromHex("28282B"),
                         ["image"] = {
                             ["url"] = "http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" ..
-                                tostring(game:GetService("Players").LocalPlayer.Name)
-                        }
-                    }
-                }
-             }
-             local newdata = game:GetService("HttpService"):JSONEncode(data)
+                                tostring(game:GetService("Players").LocalPlayer.Name);
+                        };
+                    };
+                };
+             };
+             local newdata = game:GetService("HttpService"):JSONEncode(data);
 
-             local abcdef = {Url = webhook, Body = newdata, Method = "POST", Headers = {["content-type"] = "application/json"}}
+             local abcdef = {Url = Webhook, Body = newdata, Method = "POST", Headers = {["content-type"] = "application/json"}};
 
-             http(abcdef)
-        end
-    end
-end)
+             http(abcdef);
+        end;
+    end;
+end);
