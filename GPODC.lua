@@ -4,14 +4,20 @@ local userID = "" -- your Discord ID
 local Webhook = "" -- your Discord Webhook link
 local sendTest = true -- sends a webhook for test
 ]]
+local userVal = function()
+    local val = game.Players.LocalPlayer.Name;
+    if hideUser then val = "Censored" end;
+    return val;
+end
+
 if type(isfile) ~= "function" or type(writefile) ~= "function" or type(readfile) ~= "function" or type(appendfile) ~= "function" then
    error("Filesystem functions required don't exist.", 1);
 end;
 
 if type(syn) ~= "table" then
-	if type(http_request) ~= "function" then
-	   error("HTTP request function don't exist.", 1);
-	end;
+    if type(http_request) ~= "function" then
+       error("HTTP request function don't exist.", 1);
+    end;
 end;
 
 if isfile("testedAlready.txt") then
@@ -32,17 +38,18 @@ if not isfile("dungCounter.txt") then
 end;
 
 Players.PlayerAdded:Connect(function(plr)
-    if plr.Name == Players.LocalPlayer then
+    if plr == Players.LocalPlayer then
         local Data = plr:GetJoinData();
+    print(Data.SourcePlaceId)
         warn('wow')
-        if Data.SourcePlaceId == 3978370137 then
+        if Data.SourcePlaceId == 6360478118 then
             warn('joined')
             local num;
             local formula;
             if isfile("dungCounter.txt") then
                 num = tonumber(readfile("dungCounter.txt"));
                 formula = num + 1;
-                appendFile("dungCounter.txt", formula);
+                appendfile("dungCounter.txt", formula);
             end;
 
             local data = {
@@ -50,12 +57,11 @@ Players.PlayerAdded:Connect(function(plr)
                 ["embeds"] = {
                     {
                         ["title"] = "**Dungeon Counter**",
-                        ["description"] = "Dungeon Count: " .. tonumber(formula),
+                        ["description"] = "**Username**\n||" .. userVal() .. "||\n**Dungeon Count**\n" .. formula,
                         ["type"] = "rich",
                         ["color"] = Color3.fromHex("28282B"),
-                        ["image"] = {
-                            ["url"] = "http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" ..
-                                tostring(game:GetService("Players").LocalPlayer.Name);
+                        ["thumbnail"] = {
+                            ["url"] = "https://avatars.githubusercontent.com/u/103271126?s=150&v=4";
                         };
                     };
                 };
@@ -76,12 +82,11 @@ if sendTest then
         ["embeds"] = {
             {
                 ["title"] = "**Dungeon Counter**",
-                ["description"] = "testing heloooo",
+                ["description"] = "**Username**\n||" .. userVal() .. "||\n**Testing**\ntesting helloooooo",
                 ["type"] = "rich",
                 ["color"] = Color3.fromHex("28282B"),
-                ["image"] = {
-                    ["url"] = "http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" ..
-                        tostring(game:GetService("Players").LocalPlayer.Name);
+                ["thumbnail"] = {
+                    ["url"] = "https://avatars.githubusercontent.com/u/103271126?s=150&v=4";
                 };
             };
         };
